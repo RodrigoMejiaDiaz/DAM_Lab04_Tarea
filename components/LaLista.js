@@ -1,13 +1,21 @@
 import 'react-native-gesture-handler';
 import React, {Component} from 'react';
-import {Image, Text, View, FlatList} from 'react-native';
+import {Image, Text, View, FlatList, StyleSheet} from 'react-native';
 
-function Item({title, image, price}) {
+function Item({title, image, sale, price}) {
   return (
-    <View>
-      <Image source={{uri: image}} style={{height: 40, width: 40}} />
-      <Text>{title}</Text>
-      <Text>{price}</Text>
+    <View style={styles.container}>
+      <Image source={{uri: image}} style={styles.image} />
+      <View style={styles.containerText}>
+        <Text style={styles.titulo}>{title}</Text>
+        <View style={styles.containerPrecios}>
+          <Text style={styles.precios}>
+            Precio normal:{' '}
+            <Text style={{textDecorationLine: 'line-through'}}>{price}</Text>
+          </Text>
+          <Text style={styles.precios}>Precio de oferta: {sale} $</Text>
+        </View>
+      </View>
     </View>
   );
 }
@@ -22,7 +30,9 @@ export class LaLista extends Component {
     };
   }
   async componentDidMount() {
-    await fetch('https://www.cheapshark.com/api/1.0/deals?metacritic=90')
+    await fetch(
+      'https://www.cheapshark.com/api/1.0/deals?storeID=3&metacritic=85&lowersPrice=1&AAA=1',
+    )
       .then(res => res.json())
       .then(
         result => {
@@ -40,21 +50,51 @@ export class LaLista extends Component {
   }
   render() {
     return (
-      <View>
+      <>
         <FlatList
           data={this.state.items.length > 0 ? this.state.items : []}
           renderItem={({item}) => (
             <Item
               title={item.title}
               image={item.thumb}
-              price={item.salePrice}
+              sale={item.salePrice}
+              price={item.normalPrice}
             />
           )}
           keyExtractor={item => item.dealID}
         />
-      </View>
+      </>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 1,
+    marginBottom: 5,
+  },
+  containerText: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  image: {
+    height: 50,
+    width: 150,
+  },
+  titulo: {
+    fontSize: 20,
+  },
+  containerPrecios: {
+    flexDirection: 'row',
+  },
+  precios: {
+    paddingEnd: 10,
+    fontSize: 15,
+  },
+});
 
 export default LaLista;

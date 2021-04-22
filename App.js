@@ -86,7 +86,7 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={LaLista}
-          options={{title: 'Lista'}}
+          options={{title: 'Ofertas'}}
         />
         {/* <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="CreatePost" component={CreatePostScreen} /> */}
