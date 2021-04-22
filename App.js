@@ -4,6 +4,7 @@ import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import LaLista from './components/LaLista';
+import Details from './components/Details';
 
 // function HomeScreen({navigation, route}) {
 //   React.useEffect(() => {
@@ -88,6 +89,7 @@ const App = () => {
           component={LaLista}
           options={{title: 'Ofertas'}}
         />
+        <Stack.Screen name="Details" component={Details} />
         {/* <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="CreatePost" component={CreatePostScreen} /> */}
       </Stack.Navigator>
