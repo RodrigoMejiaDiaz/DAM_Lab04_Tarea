@@ -1,24 +1,44 @@
-import 'react-native-gesture-handler';
 import React, {Component} from 'react';
-import {Image, Text, View, FlatList, StyleSheet} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 
 function Item({title, image, sale, price}) {
   return (
-    <View style={styles.container}>
-      <Image source={{uri: image}} style={styles.image} />
-      <View style={styles.containerText}>
-        <Text style={styles.titulo}>{title}</Text>
-        <View style={styles.containerPrecios}>
-          <Text style={styles.precios}>
-            Precio normal:{' '}
-            <Text style={{textDecorationLine: 'line-through'}}>{price}</Text>
-          </Text>
-          <Text style={styles.precios}>Precio de oferta: {sale} $</Text>
+    <TouchableOpacity>
+      <View style={styles.container}>
+        <Image source={{uri: image}} style={styles.image} />
+        <View style={styles.containerText}>
+          <Text style={styles.titulo}>{title}</Text>
+          <View style={styles.containerPrecios}>
+            <Text style={styles.precios}>
+              Precio normal:{' '}
+              <Text style={{textDecorationLine: 'line-through'}}>{price}</Text>
+            </Text>
+            <Text style={styles.precios}>Precio de oferta: {sale} $</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
+
+const renderItem = ({item}) => {
+  return (
+    <Item
+      title={item.title}
+      image={item.thumb}
+      sale={item.salePrice}
+      price={item.normalPrice}
+    />
+  );
+};
 
 export class LaLista extends Component {
   constructor(props) {
@@ -53,14 +73,7 @@ export class LaLista extends Component {
       <>
         <FlatList
           data={this.state.items.length > 0 ? this.state.items : []}
-          renderItem={({item}) => (
-            <Item
-              title={item.title}
-              image={item.thumb}
-              sale={item.salePrice}
-              price={item.normalPrice}
-            />
-          )}
+          renderItem={renderItem}
           keyExtractor={item => item.dealID}
         />
       </>
