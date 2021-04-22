@@ -68,7 +68,15 @@ export class LaLista extends Component {
                 image={item.thumb}
                 sale={item.salePrice}
                 price={item.normalPrice}
-                onPress={() => this.props.navigation.navigate('Details')}
+                onPress={() =>
+                  this.props.navigation.navigate('Details', {
+                    title: item.title,
+                    sale: item.salePrice,
+                    price: item.normalPrice,
+                    score: item.metacriticScore,
+                    image: item.thumb,
+                  })
+                }
                 // onPress={() => console.log(this.props.navigation)}
               />
             );
@@ -93,6 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   image: {
+    resizeMode: 'cover',
     height: 50,
     width: 150,
   },
