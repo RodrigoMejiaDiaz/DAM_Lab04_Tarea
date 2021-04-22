@@ -1,13 +1,19 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {WebView} from 'react-native-webview';
 
 const Details = ({route}) => {
-  const {title, sale, price, score, image} = route.params;
+  const {link} = route.params;
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Image source={{uri: image}} style={styles.image} />
-    </View>
+    // <View style={styles.container}>
+    //   <Text style={styles.title}>{title}</Text>
+    //   <Image source={{uri: image}} style={styles.image} />
+    // </View>
+    <WebView
+      source={{
+        uri: 'https://www.metacritic.com/' + link,
+      }}
+    />
   );
 };
 

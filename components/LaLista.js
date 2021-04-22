@@ -70,11 +70,7 @@ export class LaLista extends Component {
                 price={item.normalPrice}
                 onPress={() =>
                   this.props.navigation.navigate('Details', {
-                    title: item.title,
-                    sale: item.salePrice,
-                    price: item.normalPrice,
-                    score: item.metacriticScore,
-                    image: item.thumb,
+                    link: item.metacriticLink,
                   })
                 }
                 // onPress={() => console.log(this.props.navigation)}
